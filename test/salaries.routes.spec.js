@@ -1,7 +1,8 @@
 require("dotenv").config();
 const app = require("../src/app");
 const request = require("supertest");
-const hoy = "2022-11-29T03:00:00.000Z" 
+const fecha = require("../src/modelo/fecha");
+
 
 describe("Rest API Salarios", () => {
     it("GET /api/v1/salarios/10010", async () => {
@@ -52,7 +53,7 @@ describe("Rest API Salarios", () => {
 
 
       it("Verificar que agrega con POST /api/v1/salarios", async () => {
-        const salarie = { emp_no: 10010, salary: 90377, from_date: hoy,to_date: "9999-01-01T03:00:00.000Z"};
+        const salarie = { emp_no: 10010, salary: 90377, from_date: fecha,to_date: "9999-01-01T03:00:00.000Z"};
         const response = await request(app)
           .post("/api/v1/salarios")
           .send(salarie);
