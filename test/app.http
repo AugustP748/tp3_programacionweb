@@ -1,0 +1,132 @@
+################################################################################
+# Los Archivos con extensión http son interpretados por la extensión REST Client
+################################################################################
+
+# Variable con la URL base
+@BASE_API=http://localhost:8080
+
+### Obtener raiz
+GET {{BASE_API}}/
+
+
+### Obtener ping
+GET {{BASE_API}}/ping
+
+# Variable con la URL completa hacia la API de departamentos
+@API_DEPARTAMENTOS={{BASE_API}}/api/v1/departamentos
+@API_SALARIES={{BASE_API}}/api/v1/salarios
+@API_DEPTEMP={{BASE_API}}/api/v1/deptemp
+@API_DEPTMANAGER={{BASE_API}}/api/v1/deptmanager
+@API_EMPLEADOS={{BASE_API}}/api/v1/empleados
+
+
+### Obtener al empleado con id 10010
+GET {{API_EMPLEADOS}}/10010
+
+### Obtener al empleado con id 1 (no existe)
+GET {{API_EMPLEADOS}}/1
+
+
+
+
+### Obtener los salarios de un empleado con id 10010
+GET {{API_DEPTMANAGER}}/d001
+
+### Modificar y actualizar: mover empleado a nuevo departamento
+POST {{API_DEPTMANAGER}}/10010/d001
+Content-Type: application/json
+
+{
+    "emp_no":10010,
+    "dept_no":"d001"
+}
+
+
+### Obtener los salarios de un empleado con id 10010
+GET {{API_DEPTEMP}}/10010
+
+### Obtener los salarios de un empleado con id 1 (no existe)
+GET {{API_DEPTEMP}}/1
+
+### Modificar y actualizar: mover empleado a nuevo departamento
+POST {{API_DEPTEMP}}/10010/d001
+Content-Type: application/json
+
+{
+    "emp_no":10010,
+    "dept_no":"d001"
+}
+
+### Modificar y actualizar: mover empleado a nuevo departamento (No existe Empleado)
+POST {{API_DEPTEMP}}/1/d001
+Content-Type: application/json
+
+{
+    "emp_no":1,
+    "dept_no":"d001"
+}
+
+
+### Modificar y actualizar: mover empleado a nuevo departamento (No existe departamento)
+POST {{API_DEPTEMP}}/10010/fh009
+Content-Type: application/json
+
+{
+    "emp_no":10010,
+    "dept_no":"fh009"
+}
+
+
+### Obtener los salarios de un empleado con id 10010
+GET {{API_SALARIES}}/10010
+
+### Obtener los salarios de un empleado con id 1 (no existe)
+GET {{API_SALARIES}}/1
+
+
+### Modificar el salario de un empleado 
+POST {{API_SALARIES}}/10010/90377
+Content-Type: application/json
+
+{
+    "emp_no":10010,
+    "salary":90377
+}
+
+
+### Obtener todos los departamentos
+GET {{API_DEPARTAMENTOS}}
+
+### Obtener departamento con id d009
+GET {{API_DEPARTAMENTOS}}/d009
+
+### Obtener departamento con id d00999 (no existe)
+GET {{API_DEPARTAMENTOS}}/d00999
+
+### Obtener el Administrador del departamento con id d009
+GET {{API_DEPARTAMENTOS}}/d009/manager
+
+
+### Agregar un departamento
+POST {{API_DEPARTAMENTOS}}
+Content-Type: application/json
+
+{
+    "dept_no":"dinf",
+    "dept_name":"Departamento de Sistemas"
+}
+
+### Modificar departamento con id dinf
+PUT {{API_DEPARTAMENTOS}}/dinf
+Content-Type: application/json
+
+{
+    "dept_no":"dinf",
+    "dept_name":"Depto. de Sistemas"
+}
+
+### Eliminar departamento con id dinf
+DELETE {{API_DEPARTAMENTOS}}/dinf
+
+### Obtener departamento con id dinf
+GET {{API_DEPARTAMENTOS}}/dinf
