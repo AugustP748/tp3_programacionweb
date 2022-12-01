@@ -23,15 +23,14 @@ async function checkSalarios(req,res,next){
 }
 
 
-
-
+// PUNTO 1: OBTENER LISTADO DE SALARIO DE UN EMPLEADO
 // GET /api/v1/empleados/:id
 router.get('/:id',checkSalarios,(req,res)=>{
     res.status(200).json(res.locals.empl);    
 });
 
 
-// PUNTO 2: CAMBIAR FECHA to_DATE Y NUEVO REGISTRO DE SALARIO
+// PUNTO 2: CAMBIAR FECHA to_date Y NUEVO REGISTRO DE SALARIO
 router.post('/',async (req,res)=>{
     const {emp_no,salary} =req.body    
     if(!emp_no){
@@ -42,7 +41,18 @@ router.post('/',async (req,res)=>{
         res.status(400).send('salary es Requerido!!!')
         return
     }
-
+    // Comprobamos existencia de empleado y validacion de salario
+    const existEmpl = await DB.Employees.getById(emp_no)
+    
+    if(!existEmpl){
+        res.status(404).send('El Empleado no existe!!!')
+        return
+    }
+    
+    if(typeof(salary) != 'number'){
+        res.status(404).send('El salario no es valido!!!')
+        return
+    }
     const isUpdateOk = await DB.Salaries.ActualizarFechaToDate(req.body.emp_no)
     const isAddOk = await DB.Salaries.AgregarNuevoSalario(req.body)
 

@@ -5,7 +5,7 @@ const fecha = require("../src/modelo/fecha");
 
 
 describe("Rest API Salarios", () => {
-    it("GET /api/v1/salarios/10010", async () => {
+    it("GET /api/v1/salarios/10010 salarios del empleado 10010 caso exitoso", async () => {
         const response = await request(app).get("/api/v1/salarios/10010");
         expect(response).toBeDefined();
         expect(response.statusCode).toBe(200);
@@ -16,7 +16,7 @@ describe("Rest API Salarios", () => {
         expect(emple[0].emp_no).toBe(10010);
       });
 
-      it("GET /api/v1/salarios/1", async () => {
+      it("GET /api/v1/salarios/1 empleado que no existe", async () => {
         const response = await request(app).get("/api/v1/salarios/1");
         expect(response).toBeDefined();
         expect(response.statusCode).toBe(404);
@@ -51,6 +51,25 @@ describe("Rest API Salarios", () => {
         expect(response.text).toBe("emp_no es Requerido!!!");
       });
 
+      it("POST /api/v1/salarios con emp_no inexistente", async () => {
+        const salario = { emp_no: 1, salary: 90377 };
+        const response = await request(app)
+          .post("/api/v1/salarios")
+          .send(salario);
+        expect(response).toBeDefined();
+        expect(response.statusCode).toBe(404);
+        expect(response.text).toBe("El Empleado no existe!!!");
+      });
+
+      it("POST /api/v1/salarios con salario no valido", async () => {
+        const salario = { emp_no: 10010, salary: "90e377" };
+        const response = await request(app)
+          .post("/api/v1/salarios")
+          .send(salario);
+        expect(response).toBeDefined();
+        expect(response.statusCode).toBe(404);
+        expect(response.text).toBe("El salario no es valido!!!");
+      });
 
       it("Verificar que agrega con POST /api/v1/salarios", async () => {
         const salarie = { emp_no: 10010, salary: 90377, from_date: fecha,to_date: "9999-01-01T03:00:00.000Z"};

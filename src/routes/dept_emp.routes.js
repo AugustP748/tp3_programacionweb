@@ -37,7 +37,7 @@ router.get('/:id',checkDeptEmp,(req,res)=>{
 // PUNTO 3: CAMBIAR FECHA to_DATE Y NUEVO REGISTRO DE SALARIO
 router.post('/',async (req,res)=>{
     const {emp_no,dept_no} =req.body   
-    console.log(dept_no) 
+    //console.log(dept_no) 
     if(!emp_no){
         res.status(400).send('emp_no es Requerido!!!')
         return

@@ -1,7 +1,7 @@
 const pool = require("./connection.db");
 const TABLE='salaries'
 
-// ============= PUNTO 1
+// ============= PUNTO 1: obtener listado de salrios del empleado
 
 /**
  * Retorna listado de salarios de un empleado
@@ -20,7 +20,7 @@ const TABLE='salaries'
     }
   };
 
-  // ============= PUNTO 2
+  // ============= PUNTO 2: Cambiar el salario de un empleado
 
   /**
  * Modifica el campo to_date de tabla salario
