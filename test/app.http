@@ -3,7 +3,7 @@
 ################################################################################
 
 # Variable con la URL base
-@BASE_API=http://localhost:8080
+@BASE_API=http://localhost:8070
 
 ### Obtener raiz
 GET {{BASE_API}}/
