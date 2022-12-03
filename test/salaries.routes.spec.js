@@ -85,6 +85,8 @@ describe("Rest API Salarios", () => {
         expect(responseGET).toBeDefined();
         expect(responseGET.statusCode).toBe(200);
         expect(responseGET.body[responseGET.body.length-1]).toStrictEqual(salarie);
+        expect(responseGET.body[responseGET.body.length-1].from_date).toStrictEqual(salarie.from_date);
+        expect(responseGET.body[responseGET.body.length-1].to_date).toStrictEqual(salarie.to_date);
     
         //Verificamos que se cambio la fecha especial por la actual en el antepenultimo registro
         // salarie.from_date = fecha actual 

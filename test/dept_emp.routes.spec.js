@@ -80,6 +80,9 @@ it("POST /api/v1/deptemp  sin parámetros", async () => {
         expect(responseGET).toBeDefined();
         expect(responseGET.statusCode).toBe(200);
         expect(responseGET.body[responseGET.body.length-1]).toStrictEqual(movimiento);
+        expect(responseGET.body[responseGET.body.length-1].to_date).toStrictEqual(movimiento.to_date);
+        expect(responseGET.body[responseGET.body.length-1].from_date).toStrictEqual(movimiento.from_date);
+        expect(responseGET.body[responseGET.body.length-1].emp_no).toStrictEqual(movimiento.emp_no);
     
         //Verificamos que se cambio la fecha especial por la actual en el antepenultimo registro
         // salarie.from_date = fecha actual 

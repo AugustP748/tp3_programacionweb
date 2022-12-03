@@ -4,7 +4,7 @@ const TABLE='dept_manager'
 // ============= PUNTO 4
 
 /**
- * Retorna Historial de Departamentos de un empleado
+ * Retorna Historial de Jefes de un Departamento
  * @returns 
  */
  module.exports.ObtenerHistDeptoMan = async function (id_dept) {
@@ -20,6 +20,25 @@ const TABLE='dept_manager'
       if (conn) await conn.release();
     }
   };
+
+
+    /**
+ * Retorna al jefe actual de un departamento
+ * @returns 
+ */
+module.exports.ObtenerJefeActual = async function (dept_no) {
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const SQL= `select emp_no from ${TABLE} WHERE dept_no = ? AND to_date='9999-01-01'`;
+    const rows = await conn.query(SQL,dept_no)
+    return rows[0];
+  } catch (err) {
+    return Promise.reject(err);
+  } finally {
+    if (conn) await conn.release();
+  }
+};
 
 
     /**

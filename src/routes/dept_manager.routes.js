@@ -55,7 +55,12 @@ router.post('/',async (req,res)=>{
         res.status(404).send('El Empleado no existe!!!')
         return
     }
-
+    const JefeActual = await DB.Dept_manager.ObtenerJefeActual(dept_no)
+  
+    if(JefeActual.emp_no == emp_no){
+        res.status(400).send('Empleado ya es el Jefe Actualmente!!!')
+        return
+    }
 
     const isUpdateOk = await DB.Dept_manager.ActualizarFechaMov(req.body.dept_no)
     const isAddOk = await DB.Dept_manager.AgregarNewJefeDept(req.body)

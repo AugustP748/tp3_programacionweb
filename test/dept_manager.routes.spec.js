@@ -53,7 +53,15 @@ it("POST /api/v1/deptmanager  sin parámetros", async () => {
         expect(response.text).toBe("El Empleado no existe!!!");
       });
 
-
+      it("POST /api/v1/deptmanager  con Jefe que ya es el actual", async () => {
+        const demp = { emp_no: 110039, dept_no: "d001"};
+        const response = await request(app)
+          .post("/api/v1/deptmanager")
+          .send(demp);
+        expect(response).toBeDefined();
+        expect(response.statusCode).toBe(400);
+        expect(response.text).toBe("Empleado ya es el Jefe Actualmente!!!");
+      });
 
       it("Verificar que agrega con POST /api/v1/deptmanager", async () => {
         const movimiento = { emp_no: 10010, dept_no: "d001",from_date: fecha,
